@@ -1,7 +1,8 @@
 package com.altimetrik.moviebooking.entity;
 
 import jakarta.persistence.Entity;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
+
 
 import java.time.LocalTime;
 
