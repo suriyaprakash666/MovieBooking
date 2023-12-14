@@ -11,5 +11,4 @@ public class MoviebookingApplication {
 		SpringApplication.run(MoviebookingApplication.class, args);
 		System.out.println("Application Started...");
 	}
-
 }

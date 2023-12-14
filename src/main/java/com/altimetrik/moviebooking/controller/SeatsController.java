@@ -1,6 +1,7 @@
 package com.altimetrik.moviebooking.controller;
 
 import com.altimetrik.moviebooking.entity.Seat;
+import com.altimetrik.moviebooking.exception.SeatNotFoundException;
 import com.altimetrik.moviebooking.service.SeatsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class SeatsController {
 
     @DeleteMapping("/delete/{seatId}")
     public ResponseEntity<Void> deleteSeat(@PathVariable Long seatId) {
-         seatService.deleteSeat(seatId);
+        seatService.deleteSeat(seatId);
         return ResponseEntity.noContent().build();
     }
 
@@ -47,7 +48,3 @@ public class SeatsController {
     }
 
 }
-
-
-
-

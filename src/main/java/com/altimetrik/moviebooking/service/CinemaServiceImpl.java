@@ -1,5 +1,6 @@
 package com.altimetrik.moviebooking.service;
 
+
 import com.altimetrik.moviebooking.entity.Cinema;
 import com.altimetrik.moviebooking.exception.CinemaIdNotFoundException;
 import com.altimetrik.moviebooking.repository.CinemaRepository;
@@ -13,7 +14,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-
 public class CinemaServiceImpl implements ICinemaService {
     @Autowired
     private CinemaRepository cinemaRepository;
@@ -70,5 +70,8 @@ public class CinemaServiceImpl implements ICinemaService {
         }
 
     }
-
 }
+
+//public class CinemaServiceImpl implements ICinemaService{
+//
+//}
