@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-
 public class CinemaServiceImpl implements ICinemaService {
     @Autowired
     private CinemaRepository cinemaRepository;

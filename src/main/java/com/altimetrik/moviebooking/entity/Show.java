@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +17,13 @@ public class Show {
     @Id
     String showId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "movieId")
-//    private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "movieId")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "cinemaId")
-    private Cinema cinema;
-
+    @JoinColumn(name = "screenNo")
+    private Screen screen;
 
     @NotNull(message = "Start Time cannot be null")
     LocalTime startTime;
