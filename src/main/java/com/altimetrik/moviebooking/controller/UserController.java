@@ -57,7 +57,7 @@ public class UserController {
 
     // Delete user by ID
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
+    public ResponseEntity<Void> deleteUser(Integer userId) {
         try {
             userServiceInterface.deleteUser(userId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

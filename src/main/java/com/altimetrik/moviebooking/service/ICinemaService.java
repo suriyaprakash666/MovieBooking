@@ -1,6 +1,5 @@
 package com.altimetrik.moviebooking.service;
 
-<<<<<<< HEAD
 import com.altimetrik.moviebooking.entity.Cinema;
 import com.altimetrik.moviebooking.exception.CinemaIdNotFoundException;
 
@@ -13,10 +12,5 @@ public interface ICinemaService {
     public Cinema updateCinema(Cinema cinema);
     public Optional<Cinema> deleteCinema(long cinemaId);
     public Cinema getCinemaById(long cinemaId) throws CinemaIdNotFoundException;
-    public List<Cinema>getCinemaByLocation(String cinemaLocation);
-
-
-=======
-public interface ICinemaService {
->>>>>>> 53926498360b5aa9a96a580305b4996ce66dbb37
+    public List<Cinema> getCinemaByLocation(String cinemaLocation);
 }
