@@ -3,6 +3,7 @@ package com.altimetrik.moviebooking.controller;
 import com.altimetrik.moviebooking.entity.Cinema;
 import com.altimetrik.moviebooking.exception.CinemaIdNotFoundException;
 import com.altimetrik.moviebooking.service.CinemaServiceImpl;
+import jakarta.validation.Valid;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CinemaController {
     }
     @PostMapping(path="/save")
     @ResponseBody
-    public String  saveCinema( @RequestBody Cinema cinema){
+    public String  saveCinema( @Valid @RequestBody Cinema cinema){
         cinemaService.saveCinema(cinema);
         return "Cinema details saved Successfully";
     }
@@ -32,7 +33,7 @@ public class CinemaController {
     }
     @ResponseBody
     @PutMapping("/update")
-    public String updateCinema(@RequestBody Cinema cinema){
+    public String updateCinema( @Valid @RequestBody Cinema cinema){
         cinemaService.updateCinema(cinema);
         return "updated Successfully";
     }
@@ -51,7 +52,7 @@ public class CinemaController {
         return cinemaService.getCinemaById(cinemaId);
     }
     @GetMapping("/location")
-    public String getCinemaByLocation(@RequestBody String cinemaLocation) {
+    public String getCinemaByLocation( @Valid @RequestBody String cinemaLocation) {
         try {
             cinemaService.getCinemaByLocation(cinemaLocation);
             return "Cinemas by location";
