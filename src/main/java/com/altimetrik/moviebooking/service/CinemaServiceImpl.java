@@ -1,6 +1,6 @@
 package com.altimetrik.moviebooking.service;
 
-<<<<<<< HEAD
+
 import com.altimetrik.moviebooking.entity.Cinema;
 import com.altimetrik.moviebooking.exception.CinemaIdNotFoundException;
 import com.altimetrik.moviebooking.repository.CinemaRepository;
@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-
 public class CinemaServiceImpl implements ICinemaService {
     @Autowired
     private CinemaRepository cinemaRepository;
@@ -31,15 +30,15 @@ public class CinemaServiceImpl implements ICinemaService {
 
     @Override
     public Cinema updateCinema(Cinema cinema) {
-        Optional<Cinema>opt=cinemaRepository.findById(cinema.getCinemaId());
-        if(opt.isPresent()){
+        Optional<Cinema> opt = cinemaRepository.findById(cinema.getCinemaId());
+        if (opt.isPresent()) {
             cinemaRepository.save(cinema);
         }
         return cinema;
     }
 
     @Override
-    public Optional<Cinema>deleteCinema(long cinemaId) {
+    public Optional<Cinema> deleteCinema(long cinemaId) {
         cinemaRepository.deleteById(cinemaId);
         return cinemaRepository.findById(cinemaId);
 
@@ -49,14 +48,12 @@ public class CinemaServiceImpl implements ICinemaService {
     public Cinema getCinemaById(long cinemaId) throws CinemaIdNotFoundException {
         Optional<Cinema> optional = cinemaRepository.findById(cinemaId);
         Cinema c = null;
-            if (optional.isPresent()) {
-                c = optional.get();
-                throw new CinemaIdNotFoundException("CinemaId Not Found");
-            }
-            return c;
+        if (optional.isPresent()) {
+            c = optional.get();
+            throw new CinemaIdNotFoundException("CinemaId Not Found");
         }
-
-
+        return c;
+    }
 
 
     @Override
@@ -73,8 +70,4 @@ public class CinemaServiceImpl implements ICinemaService {
         }
 
     }
-
-=======
-public class CinemaServiceImpl implements ICinemaService{
->>>>>>> 53926498360b5aa9a96a580305b4996ce66dbb37
 }
