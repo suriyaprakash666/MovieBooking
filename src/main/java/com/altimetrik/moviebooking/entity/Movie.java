@@ -1,5 +1,5 @@
 package com.altimetrik.moviebooking.entity;
 
-public class Movies {
+public class Movie {
 
 }

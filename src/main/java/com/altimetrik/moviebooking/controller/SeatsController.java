@@ -1,6 +1,6 @@
 package com.altimetrik.moviebooking.controller;
 
-import com.altimetrik.moviebooking.entity.Seats;
+import com.altimetrik.moviebooking.entity.Seat;
 import com.altimetrik.moviebooking.service.SeatsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,20 +17,20 @@ public class SeatsController {
     private  SeatsServiceImpl seatService;
 
     @PostMapping("/create")
-    public ResponseEntity<Seats> createSeat(@RequestBody Seats newSeat) {
-        Seats createdSeat = seatService.createSeat(newSeat);
+    public ResponseEntity<Seat> createSeat(@RequestBody Seat newSeat) {
+        Seat createdSeat = seatService.createSeat(newSeat);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSeat);
     }
 
     @GetMapping("/{seatId}")
-    public ResponseEntity<Seats> getSeatById(@PathVariable Long seatId) {
-        Optional<Seats> seat = seatService.getSeatById(seatId);
+    public ResponseEntity<Seat> getSeatById(@PathVariable Long seatId) {
+        Optional<Seat> seat = seatService.getSeatById(seatId);
         return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update/{seatId}")
-    public ResponseEntity<Seats> updateSeat(@PathVariable Long seatId, @RequestBody Seats updatedSeat) {
-        Seats seat = seatService.updateSeat(seatId, updatedSeat);
+    public ResponseEntity<Seat> updateSeat(@PathVariable Long seatId, @RequestBody Seat updatedSeat) {
+        Seat seat = seatService.updateSeat(seatId, updatedSeat);
         return seat != null ? ResponseEntity.ok(seat) : ResponseEntity.notFound().build();
     }
 
@@ -41,8 +41,8 @@ public class SeatsController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Seats>> getAllSeats() {
-        List<Seats> seats = seatService.getAllSeats();
+    public ResponseEntity<List<Seat>> getAllSeats() {
+        List<Seat> seats = seatService.getAllSeats();
         return ResponseEntity.ok(seats);
     }
 
