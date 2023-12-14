@@ -1,25 +1,29 @@
 package com.altimetrik.moviebooking.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Entity
 @Data
-public class Shows {
+public class Show {
     @Id
     String showId;
 
-    @NotBlank(message = "Movie ID cannot be blank")
-    String movieId;
+//    @ManyToOne
+//    @JoinColumn(name = "movieId")
+//    private Movie movie;
 
-    @NotBlank(message = "Cinema ID cannot be blank")
-    String cinemaId;
+    @ManyToOne
+    @JoinColumn(name = "cinemaId")
+    private Cinema cinema;
+
 
     @NotNull(message = "Start Time cannot be null")
     LocalTime startTime;
@@ -33,7 +37,11 @@ public class Shows {
     @Positive(message = "Seat Availability must be a positive value")
     int seatAvailability;
 
-    public Shows() {
+    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Seat> seats = new ArrayList<>();
+
+    public Show() {
         generateRandomShowId();
     }
 

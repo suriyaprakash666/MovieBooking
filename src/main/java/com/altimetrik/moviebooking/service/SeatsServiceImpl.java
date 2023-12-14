@@ -1,6 +1,6 @@
 package com.altimetrik.moviebooking.service;
 
-import com.altimetrik.moviebooking.entity.Seats;
+import com.altimetrik.moviebooking.entity.Seat;
 import com.altimetrik.moviebooking.repository.SeatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,16 @@ public class SeatsServiceImpl implements ISeatsService{
         @Autowired
         private SeatsRepository seatRepository;
 
-        public Seats createSeat(Seats newSeat) {
+        public Seat createSeat(Seat newSeat) {
             return seatRepository.save(newSeat);
         }
 
-        public Optional<Seats> getSeatById(Long seatId) {
+        public Optional<Seat> getSeatById(Long seatId) {
             return seatRepository.findById(seatId);
         }
 
-        public Seats updateSeat(Long seatId, Seats updatedSeat) {
-            Seats seat = seatRepository.findById(seatId).orElse(null);
+        public Seat updateSeat(Long seatId, Seat updatedSeat) {
+            Seat seat = seatRepository.findById(seatId).orElse(null);
             if (seat != null) {
                 seat.setStatus(updatedSeat.getStatus());
                 seat.setType(updatedSeat.getType());
@@ -35,7 +35,7 @@ public class SeatsServiceImpl implements ISeatsService{
                 seatRepository.deleteById(seatId);
         }
 
-        public List<Seats> getAllSeats() {
+        public List<Seat> getAllSeats() {
             return seatRepository.findAll();
         }
 

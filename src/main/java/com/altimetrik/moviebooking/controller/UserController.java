@@ -2,7 +2,7 @@ package com.altimetrik.moviebooking.controller;
 
 import com.altimetrik.moviebooking.entity.User;
 import com.altimetrik.moviebooking.exception.UserNotFoundException;
-import com.altimetrik.moviebooking.service.UserServiceInterface;
+import com.altimetrik.moviebooking.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private final UserServiceInterface userServiceInterface;
+    private final IUserService userServiceInterface;
 
     @Autowired
-    public UserController(UserServiceInterface userServiceInterface) {
+    public UserController(IUserService userServiceInterface) {
         this.userServiceInterface = userServiceInterface;
     }
 
     // Create a new user
-    @PostMapping("register-user")
+    @PostMapping("/register-user")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userServiceInterface.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);

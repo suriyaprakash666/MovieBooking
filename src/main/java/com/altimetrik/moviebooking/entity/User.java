@@ -9,23 +9,23 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "custom_user_table")
+@Table(name = "USER_TABLE")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private Integer userId;
 
-    @Column(name = "user_name")
+    @Column(name = "USER_NAME")
     private String userName;
 
-    @Column(name = "user_phone_number")
+    @Column(name = "USER_PHONE_NUMBER")
     private Long userPhoneNumber;
 
-    @Column(name = "user_email")
+    @Column(name = "USER_EMAIL")
     private String userEmail;
 
-    @Column(name = "user_password")
+    @Column(name = "USER_PASSWORD")
     private String userPassword;
 
 }

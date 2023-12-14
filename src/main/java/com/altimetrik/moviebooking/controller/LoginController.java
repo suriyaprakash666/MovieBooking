@@ -2,7 +2,8 @@ package com.altimetrik.moviebooking.controller;
 
 import com.altimetrik.moviebooking.DTO.LoginRequest;
 import com.altimetrik.moviebooking.entity.User;
-import com.altimetrik.moviebooking.service.UserServiceInterface;
+import com.altimetrik.moviebooking.service.IUserService;
+import com.altimetrik.moviebooking.service.IUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
     @Autowired
-    UserServiceInterface userServiceInterface;
+    IUserService userServiceInterface;
     @PostMapping("/user-login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest) {
         User user = userServiceInterface.getUserById(loginRequest.getUserID());
