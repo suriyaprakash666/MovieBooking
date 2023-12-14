@@ -17,4 +17,11 @@ public class ExceptionControllerAdvice {
         CustomErrorResponse customErrorResponse = new CustomErrorResponse(LocalDateTime.now().toString(),500,"Runtime Exception", message);
         return new ResponseEntity<>(customErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(UserNotFoundException.class)
+    public  ResponseEntity<UserNotFoundException> handleUserNotFoundException(UserNotFoundException ex){
+        String message = ex.getMessage();
+        UserNotFoundException userNotFoundException = new UserNotFoundException("User Not Found with the ID: ","Check User Id Once!");
+        return new ResponseEntity<>(userNotFoundException,HttpStatus.NOT_FOUND);
+    }
+
 }

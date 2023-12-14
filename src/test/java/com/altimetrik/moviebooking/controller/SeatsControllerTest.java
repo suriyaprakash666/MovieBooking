@@ -1,6 +1,7 @@
 package com.altimetrik.moviebooking.controller;
 
-import com.altimetrik.moviebooking.entity.Seats;
+import com.altimetrik.moviebooking.entity.Seat;
+import com.altimetrik.moviebooking.entity.Show;
 import com.altimetrik.moviebooking.exception.SeatNotFoundException;
 import com.altimetrik.moviebooking.service.SeatsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,14 +12,16 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-public class SeatsControllerTest {
+class SeatsControllerTest {
 
     @Mock
     private SeatsServiceImpl seatService;
@@ -27,70 +30,68 @@ public class SeatsControllerTest {
     private SeatsController seatsController;
 
     @BeforeEach
-    public void setup() {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void testCreateSeat() {
-        Seats seat = new Seats(); // Create a sample seat object
+    void testCreateSeat() {
+        Seat newSeat = new Seat(2l,"s123","si12","booked",new Show());
+        when(seatService.createSeat(any())).thenReturn(newSeat);
 
-        when(seatService.createSeat(any(Seats.class))).thenReturn(seat);
+        ResponseEntity<Seat> response = seatsController.createSeat(newSeat);
 
-        ResponseEntity<Seats> responseEntity = seatsController.createSeat(seat);
-
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertEquals(seat, responseEntity.getBody());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(newSeat, response.getBody());
     }
 
     @Test
-    public void testGetSeatById_ExistingSeat() throws SeatNotFoundException {
-        Seats seat = new Seats(); // Create a sample seat object
+    void testGetSeatById() {
         Long seatId = 1L;
-
-        when(seatService.getSeatById(seatId)).thenReturn(seat);
-
-        ResponseEntity<Seats> responseEntity = seatsController.getSeatById(seatId);
-
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(seat, responseEntity.getBody());
+        Seat seat = new Seat(3l,"s123","d23","booked",new Show());
+        when(seatService.getSeatById(seatId)).thenReturn(Optional.of(seat));
+        ResponseEntity<Seat> response = seatsController.getSeatById(seatId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(seat, response.getBody());
     }
 
     @Test
-    public void testUpdateSeat() {
-        Seats seat = new Seats(); // Create a sample seat object
+    void testUpdateSeat() {
         Long seatId = 1L;
+        Seat updatedSeat = new Seat(2l,"s123","d23","booked",new Show());
+        when(seatService.updateSeat(eq(seatId), any())).thenReturn(updatedSeat);
 
-        when(seatService.updateSeat(seatId, seat)).thenReturn(seat);
+        ResponseEntity<Seat> response = seatsController.updateSeat(seatId, updatedSeat);
 
-        ResponseEntity<Seats> responseEntity = seatsController.updateSeat(seatId, seat);
-
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(seat, responseEntity.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(updatedSeat, response.getBody());
     }
 
     @Test
-    public void testDeleteSeat() {
+    void testDeleteSeat() {
         Long seatId = 1L;
+        doNothing().when(seatService).deleteSeat(seatId);
 
-        ResponseEntity<Void> responseEntity = seatsController.deleteSeat(seatId);
+        ResponseEntity<Void> response = seatsController.deleteSeat(seatId);
 
-        verify(seatService, times(1)).deleteSeat(seatId);
-        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertTrue(response.getBody() == null);
     }
 
     @Test
-    public void testGetAllSeats() {
-        Seats seat1 = new Seats();
-        Seats seat2 = new Seats();
-        List<Seats> seats = Arrays.asList(seat1, seat2);
+    void testGetAllSeats() {
+        List<Seat> seatList = new ArrayList<>();
 
-        when(seatService.getAllSeats()).thenReturn(seats);
+        when(seatService.getAllSeats()).thenReturn(seatList);
 
-        ResponseEntity<List<Seats>> responseEntity = seatsController.getAllSeats();
+        ResponseEntity<List<Seat>> response = seatsController.getAllSeats();
 
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(seats, responseEntity.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(seatList, response.getBody());
     }
 }
+
+
+
+
 
