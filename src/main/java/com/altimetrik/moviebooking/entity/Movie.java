@@ -1,6 +1,4 @@
 package com.altimetrik.moviebooking.entity;
-
-<<<<<<< HEAD
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -27,7 +25,7 @@ public class Movie {
     @NotBlank(message = "enter the movie title")
     private String movieTitle;
 
-    @NotBlank(message ="enter the movie description" )
+    @NotBlank(message = "enter the movie description")
     private String description;
 
     @NotNull(message = "enter date")
@@ -35,7 +33,7 @@ public class Movie {
     private LocalDate releaseDate;
 
     @NotNull(message = "enter the duration")
-    @DecimalMin(value = "80.0",message = "duration should be at least 80 minutes")
+    @DecimalMin(value = "80.0", message = "duration should be at least 80 minutes")
     @DecimalMax(value = "250.0", message = "duration should not be more than 250 minutes")
     private Double duration;
 
@@ -47,9 +45,6 @@ public class Movie {
 
     @NotBlank(message = "enter the casting")
     private String casting;
-
-=======
-public class Movie {
-
->>>>>>> 65452758ce0302941000aa5a5c528d79eed434c2
 }
+
+
