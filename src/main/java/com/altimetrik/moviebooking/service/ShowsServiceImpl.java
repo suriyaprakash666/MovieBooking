@@ -1,6 +1,6 @@
 package com.altimetrik.moviebooking.service;
 
-import com.altimetrik.moviebooking.entity.Shows;
+import com.altimetrik.moviebooking.entity.Show;
 import com.altimetrik.moviebooking.exception.ShowsException;
 import com.altimetrik.moviebooking.repository.ShowsRepository;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ShowsServiceImpl implements IShowService{
+public class ShowsServiceImpl implements ShowService {
     private static final Logger logger = LoggerFactory.getLogger(ShowsServiceImpl.class);
     private final ShowsRepository showsRepository;
     @Autowired
@@ -20,17 +20,17 @@ public class ShowsServiceImpl implements IShowService{
         this.showsRepository = showsRepository;
     }
 
-    public List<Shows> getAllShows() {
+    public List<Show> getAllShows() {
         logger.info("Fetching all shows");
         return showsRepository.findAll();
     }
 
-    public Optional<Shows> getShowById(String showId) {
+    public Optional<Show> getShowById(String showId) {
         logger.info("Fetching show by ID: {}", showId);
         return Optional.ofNullable(showsRepository.findById(showId).orElseThrow(() -> new ShowsException("Invalid Show Id")));
     }
 
-    public Shows saveShow(Shows show) {
+    public Show saveShow(Show show) {
         logger.info("Saving show: {}", show);
         return showsRepository.save(show);
     }
