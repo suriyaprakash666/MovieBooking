@@ -1,6 +1,7 @@
 package com.altimetrik.moviebooking.controller;
 
 import com.altimetrik.moviebooking.entity.Seats;
+import com.altimetrik.moviebooking.exception.SeatNotFoundException;
 import com.altimetrik.moviebooking.service.SeatsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,14 @@ public class SeatsController {
 
     @GetMapping("/{seatId}")
     public ResponseEntity<Seats> getSeatById(@PathVariable Long seatId) {
-        Optional<Seats> seat = seatService.getSeatById(seatId);
-        return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        try {
+            Seats seat = seatService.getSeatById(seatId);
+            return new ResponseEntity<>(seat, HttpStatus.OK);
+        } catch (SeatNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+            //Seats seat = seatService.getSeatById(seatId);
+            //return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update/{seatId}")

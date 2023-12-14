@@ -1,6 +1,7 @@
 package com.altimetrik.moviebooking.service;
 
 import com.altimetrik.moviebooking.entity.Seats;
+import com.altimetrik.moviebooking.exception.SeatNotFoundException;
 import com.altimetrik.moviebooking.repository.SeatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,14 @@ public class SeatsServiceImpl implements ISeatsService{
             return seatRepository.save(newSeat);
         }
 
-        public Optional<Seats> getSeatById(Long seatId) {
-            return seatRepository.findById(seatId);
+        public Seats getSeatById(Long seatId) throws SeatNotFoundException {
+            Optional<Seats> opt=seatRepository.findById(seatId);
+            if(opt.isPresent()){
+                return opt.get();
+            }
+            else{
+                throw new SeatNotFoundException("Id not found with ID: " + seatId,"Check your Id Once!");
+            }
         }
 
         public Seats updateSeat(Long seatId, Seats updatedSeat) {
