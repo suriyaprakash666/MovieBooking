@@ -27,12 +27,10 @@ public class MovieController {
     }
 
     @GetMapping("/movie/{movieId}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable int movieId)
+    public ResponseEntity<Movie> getMovieById(@PathVariable String movieId)
     {
         return movieService.getMovieById(movieId);
     }
-
-
     @GetMapping("/movies")
     public ResponseEntity<List<Movie>> getAllMovies()
     {
@@ -43,6 +41,18 @@ public class MovieController {
     {
         return movieService.getMoviesByReleaseDate(releaseDate);
     }
+
+    @GetMapping("/movies/release/year/{year}")
+    public ResponseEntity<List<Movie>> getMovieByYear(@PathVariable int year)
+    {
+        return movieService.getMoviesByYear(year);
+    }
+    @GetMapping("/movies/release/year/{year}/{month}")
+    public ResponseEntity<List<Movie>> getMovieByYearAndMonth(@PathVariable int year,@PathVariable int month)
+    {
+        return movieService.getMoviesByMonthAndYear(month,year);
+    }
+
     @GetMapping("/movies/actor/{actor}")
     public ResponseEntity<List<Movie>> getMoviesByActor(@PathVariable String actor)
     {
@@ -55,12 +65,12 @@ public class MovieController {
         return movieService.getMoviesByGenre(genre);
     }
     @PutMapping("/movie/{movieId}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable Integer movieId,@RequestBody Movie movie){
+    public ResponseEntity<Movie> updateMovie(@PathVariable String movieId,@RequestBody Movie movie){
        return movieService.updateMovie(movieId,movie);
     }
 
     @DeleteMapping("/movie/{movieId}")
-    public ResponseEntity<Movie> deleteMovie(@PathVariable Integer movieId){
+    public ResponseEntity<Movie> deleteMovie(@PathVariable String movieId){
        return movieService.deleteMovie(movieId);
     }
 }
