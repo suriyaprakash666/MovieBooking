@@ -1,5 +1,6 @@
 package com.altimetrik.moviebooking.entity;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -47,4 +48,8 @@ public class Movie {
     @NotBlank(message = "enter the casting")
     private String casting;
 
+=======
+public class Movie {
+
+>>>>>>> 65452758ce0302941000aa5a5c528d79eed434c2
 }
