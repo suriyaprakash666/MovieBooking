@@ -9,9 +9,9 @@ import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie,String> {
 
-    Optional<List<Movie>> findByGenre(String genre);
+    List<Movie> findByGenre(String genre);
 
-    Optional<List<Movie>> findByReleaseDate(LocalDate releaseDate);
+    List<Movie> findByReleaseDate(LocalDate releaseDate);
 
     boolean existsByMovieTitle(String title);
     List<Movie> findByReleaseDateBetween(LocalDate startDate, LocalDate endDate);

@@ -72,7 +72,11 @@ public class MovieServiceImpl implements IMovieService{
 
     @Override
     public ResponseEntity<List<Movie>> getMoviesByGenre(String genre) {
-        List<Movie> movies=movieRepository.findByGenre(genre).orElseThrow(()->new MovieNotFoundException("no movies found in this genre"));
+        List<Movie> movies=movieRepository.findByGenre(genre);
+        if(movies.isEmpty())
+        {
+            throw new MovieNotFoundException("no movies found in this genre");
+        }
         message="found all movies on genre";
         logger.info(message);
         return ResponseEntity.ok(movies);
@@ -90,8 +94,13 @@ public class MovieServiceImpl implements IMovieService{
     }
     @Override
     public ResponseEntity<List<Movie>> getMoviesByReleaseDate(LocalDate releaseDate) {
-        List<Movie> movies=movieRepository.findByReleaseDate(releaseDate).orElseThrow(()->new MovieNotFoundException("No movies released in this date:"+releaseDate));
+        List<Movie> movies=movieRepository.findByReleaseDate(releaseDate);
+        if (movies.isEmpty())
+        {
+            throw new MovieNotFoundException("No movies released in this date:"+releaseDate);
+        }
         message="found all movies by release date:"+releaseDate;
+        logger.info(message);
         return ResponseEntity.ok(movies);
     }
 
@@ -104,7 +113,8 @@ public class MovieServiceImpl implements IMovieService{
         {
             throw new MovieNotFoundException("no movies released in this year:"+year);
         }
-
+        message="found movies in the year:"+year;
+        logger.info(message);
         return ResponseEntity.ok(movies);
     }
 
@@ -117,6 +127,8 @@ public class MovieServiceImpl implements IMovieService{
         {
             throw new MovieNotFoundException("no movies released in this year:"+year+"month:"+month);
         }
+        message="found movies released in the year:"+year+" month:"+month;
+        logger.info(message);
         return ResponseEntity.ok(movies);
     }
 

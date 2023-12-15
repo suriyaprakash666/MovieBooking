@@ -36,18 +36,18 @@ public class MovieController {
     {
         return movieService.getAllMovies();
     }
-    @GetMapping("/movies/release/{releaseDate}")
+    @GetMapping("/movies/{releaseDate}")
     public ResponseEntity<List<Movie>> getMovieByReleaseDate(@PathVariable LocalDate releaseDate)
     {
         return movieService.getMoviesByReleaseDate(releaseDate);
     }
 
-    @GetMapping("/movies/release/year/{year}")
+    @GetMapping("/movies/year/{year}")
     public ResponseEntity<List<Movie>> getMovieByYear(@PathVariable int year)
     {
         return movieService.getMoviesByYear(year);
     }
-    @GetMapping("/movies/release/year/{year}/{month}")
+    @GetMapping("/movies/year/{year}/month/{month}")
     public ResponseEntity<List<Movie>> getMovieByYearAndMonth(@PathVariable int year,@PathVariable int month)
     {
         return movieService.getMoviesByMonthAndYear(month,year);

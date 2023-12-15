@@ -1,9 +1,6 @@
 package com.altimetrik.moviebooking.service;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f06a069fdda15f7c491ea4d50911d461ffe6e14e
 import com.altimetrik.moviebooking.entity.Cinema;
 import com.altimetrik.moviebooking.exception.CinemaIdNotFoundException;
 

@@ -12,11 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
-<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
-=======
 import java.util.List;
->>>>>>> e5caf56ee0e9db12868bdb8136dab25d0e2fd0fe
 
 @Entity
 @Data
@@ -51,7 +48,6 @@ public class Movie {
     @NotBlank(message = "enter the casting")
     private String casting;
 
-<<<<<<< HEAD
     @PrePersist
     public void onCreate()
     {
@@ -60,11 +56,10 @@ public class Movie {
         movieId+=secureRandom.nextInt(9000)+1000;
 
     }
-=======
+
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Show> shows;
->>>>>>> e5caf56ee0e9db12868bdb8136dab25d0e2fd0fe
 }
 
 
