@@ -1,6 +1,5 @@
 package com.altimetrik.moviebooking.exception;
 
-import com.altimetrik.moviebooking.service.MovieServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ public class ExceptionControllerAdvice {
 
 //    Use This format to write exception in this controller
 
-    private static final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<CustomErrorResponse> handleRuntimeException(RuntimeException ex) {
@@ -30,20 +28,6 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(userNotFoundException,HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(MovieNotFoundException.class)
-    public  ResponseEntity<CustomErrorResponse> handleMovieNotFoundException(MovieNotFoundException ex){
-        String message=ex.getMessage();
-        CustomErrorResponse customErrorResponse=new CustomErrorResponse(LocalDateTime.now().toString(),404,"NOT FOUND",message);
-        logger.error(message);
-        return new ResponseEntity<>(customErrorResponse, HttpStatus.NOT_FOUND);
-    }
 
-    @ExceptionHandler(MovieTitleAlreadyPresentException.class)
-    public  ResponseEntity<CustomErrorResponse> handleMovieTitleAlreadyPresentException(MovieTitleAlreadyPresentException ex){
-        String message=ex.getMessage();
-        CustomErrorResponse customErrorResponse=new CustomErrorResponse(LocalDateTime.now().toString(),404,"Already present",message);
-        logger.error(message);
-        return new ResponseEntity<>(customErrorResponse, HttpStatus.NOT_ACCEPTABLE);
-    }
 
 }

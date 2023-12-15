@@ -4,6 +4,7 @@ import com.altimetrik.moviebooking.entity.Movie;
 import com.altimetrik.moviebooking.service.IMovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class MovieController {
         return movieService.getAllMovies();
     }
     @GetMapping("/movies/{releaseDate}")
-    public ResponseEntity<List<Movie>> getMovieByReleaseDate(@PathVariable LocalDate releaseDate)
+    public ResponseEntity<List<Movie>> getMovieByReleaseDate(@PathVariable @DateTimeFormat() LocalDate releaseDate)
     {
         return movieService.getMoviesByReleaseDate(releaseDate);
     }
