@@ -10,7 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -20,9 +22,7 @@ import java.util.List;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_sequence")
-    @SequenceGenerator(name = "movie_sequence", sequenceName = "movie_sequence", allocationSize = 1, initialValue = 1000)
-    private Integer movieId;
+    private String movieId;
 
     @NotBlank(message = "enter the movie title")
     private String movieTitle;
@@ -47,6 +47,15 @@ public class Movie {
 
     @NotBlank(message = "enter the casting")
     private String casting;
+
+    @PrePersist
+    public void onCreate()
+    {
+        movieId=this.releaseDate.format(DateTimeFormatter.ofPattern("yyMMM"));
+        SecureRandom secureRandom = new SecureRandom();
+        movieId+=secureRandom.nextInt(9000)+1000;
+
+    }
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @JsonIgnore

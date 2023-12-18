@@ -7,16 +7,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface MovieRepository extends JpaRepository<Movie,Integer> {
+public interface MovieRepository extends JpaRepository<Movie,String> {
 
-    Optional<List<Movie>> findByGenre(String genre);
+    List<Movie> findByGenre(String genre);
 
-    Optional<List<Movie>> findByReleaseDate(LocalDate releaseDate);
-    default Optional<Movie> deleteAndGetById(Integer movieId) {
-        Optional<Movie> optionalMovie = findById(movieId);
-        optionalMovie.ifPresent(this::delete);
-        return optionalMovie;
-    }
+    List<Movie> findByReleaseDate(LocalDate releaseDate);
+
+    boolean existsByMovieTitle(String title);
+    List<Movie> findByReleaseDateBetween(LocalDate startDate, LocalDate endDate);
+
+
 
 
 }

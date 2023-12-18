@@ -50,6 +50,8 @@ public class CinemaServiceImpl implements ICinemaService {
         Cinema c = null;
         if (optional.isPresent()) {
             c = optional.get();
+        }
+        else{
             throw new CinemaIdNotFoundException("CinemaId Not Found");
         }
         return c;
@@ -71,3 +73,7 @@ public class CinemaServiceImpl implements ICinemaService {
 
     }
 }
+
+//public class CinemaServiceImpl implements ICinemaService{
+//
+//}
