@@ -15,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 public class UserControllerTest {
      //Junit test template
     @Mock
@@ -63,10 +62,9 @@ public class UserControllerTest {
         // Act
         List<User> response = userController.getAllUsers();
         // Assert
-        assertEquals(HttpStatus.OK.value(), response.size()); // Check the HTTP status code
-        assertEquals(mockCustomers.size(), response.size());
-        assertEquals(mockCustomers, response);
-        verify(userService, times(1)).getAllUsers();
+        assertEquals(mockCustomers.size(), response.size()); // Check the size of the response list
+        assertEquals(mockCustomers, response); // Check if the content is the same
+        verify(userService, times(1)).getAllUsers(); // Verify that the service method was called once
     }
 
     @Test
