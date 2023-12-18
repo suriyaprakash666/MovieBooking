@@ -12,35 +12,34 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/shows")
-public class ShowsController {
-    private final ShowService showsService;
-
+public class ShowController {
+    private final ShowService showService;
     @Autowired
-    public ShowsController(ShowService showsService) {
-        this.showsService = showsService;
+    public ShowController(ShowService showService) {
+        this.showService = showService;
     }
 
     @GetMapping
     public List<Show> getAllShows() {
-        return showsService.getAllShows();
+        return showService.getAllShows();
     }
 
     @GetMapping("/{showId}")
     public ResponseEntity<Show> getShowById(@PathVariable String showId) {
-        return showsService.getShowById(showId)
+        return showService.getShowById(showId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Show> createShow(@Valid @RequestBody Show show) {
-        Show savedShow = showsService.saveShow(show);
+        Show savedShow = showService.saveShow(show);
         return new ResponseEntity<>(savedShow, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{showId}")
     public ResponseEntity<Void> deleteShow(@PathVariable String showId) {
-        showsService.deleteShow(showId);
+        showService.deleteShow(showId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +14,18 @@ import java.util.Random;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class Show {
     @Id
     String showId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "movieId")
-//    private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "movieId")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "cinemaId")
-    private Cinema cinema;
-
+    @JoinColumn(name = "screenNo")
+    private Screen screen;
 
     @NotNull(message = "Start Time cannot be null")
     LocalTime startTime;
@@ -40,6 +42,24 @@ public class Show {
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Seat> seats = new ArrayList<>();
+
+    @Transient
+    private String movieTitle;
+
+    @Transient
+    private String cinemaName;
+
+    @Transient
+    private int screenNo;
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+
+    public Screen getScreen() {
+        return screen;
+    }
 
     public Show() {
         generateRandomShowId();
@@ -58,5 +78,17 @@ public class Show {
         }
 
         this.showId = generatedId.toString();
+    }
+
+    public String getMovieTitle() {
+        return (movie != null) ? movie.getMovieTitle() : null;
+    }
+
+    public String getCinemaName() {
+        return (screen != null && screen.getCinema() != null) ? screen.getCinema().getCinemaName() : null;
+    }
+
+    public int getScreenNo() {
+        return (screen != null) ? screen.getScreenNo() : 0;
     }
 }

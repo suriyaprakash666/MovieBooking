@@ -39,7 +39,7 @@ public class Cinema {
     private long capacity;
     private String facilities;
 
-    @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Show> shows = new ArrayList<>();
+    private List<Screen> screens = new ArrayList<>();
 }
