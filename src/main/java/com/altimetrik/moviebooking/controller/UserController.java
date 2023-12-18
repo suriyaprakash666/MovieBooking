@@ -46,7 +46,7 @@ public class UserController {
     }
 
     // Update user by ID
-    @PutMapping("/{userId}")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Integer userId,@Valid @RequestBody User updatedUser) {
         try {
             User user = userServiceInterface.updateUser(userId, updatedUser);
